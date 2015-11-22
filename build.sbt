@@ -9,7 +9,7 @@ scalaVersion := "2.11.6"
 resolvers += "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"
 
 libraryDependencies ++= Seq(
-  specs2 % Test
+ "org.scalatestplus" %% "play" % "1.4.0-M3" % Test
 )     
 
-routesGenerator := InjectedRoutesGenerator
+//routesGenerator := InjectedRoutesGenerator

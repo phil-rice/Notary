@@ -1,0 +1,52 @@
+package org.validoc.notary.integration
+
+import org.scalatest._
+import play.api.test._
+import play.api.test.Helpers._
+import org.scalatestplus.play._
+import play.api.Play
+
+class LoginIntegrationTest extends PlaySpec with OneServerPerSuite with OneBrowserPerTest with ChromeFactory {
+
+  "The login page" must {
+    "diplay 'Logged In as" in {
+      go to (s"http://localhost:$port/login?user=Phil&password=SomePassWord")
+      pageSource must include("Logged in as Phil")
+    }
+  }
+
+  "The logout page" must {
+    "diplay 'Logged out if logged in before calling" in {
+      go to (s"http://localhost:$port/login?user=Phil&password=SomePassWord")
+      go to (s"http://localhost:$port/logout")
+      pageSource must include("Logged Out")
+    }
+    "diplay 'Logged out even if not logged in" in {
+      go to (s"http://localhost:$port/logout")
+      pageSource must include("Logged Out")
+    }
+  }
+
+  "The who page" must {
+    "return None before logging" in {
+      go to (s"http://localhost:$port/who")
+      pageSource must include("You are logged in as None")
+    }
+
+    "return who after logging in" in {
+      go to (s"http://localhost:$port/login?user=Phil&password=SomePassWord")
+      go to (s"http://localhost:$port/who")
+      pageSource must include("You are logged in as Some(Phil)")
+    }
+
+    "display None after log in and log out" in {
+      go to (s"http://localhost:$port/who")
+      pageSource must include("You are logged in as None")
+
+      go to (s"http://localhost:$port/login?user=Phil&password=SomePassWord")
+      go to (s"http://localhost:$port/logout")
+      go to (s"http://localhost:$port/who")
+      pageSource must include("You are logged in as None")
+    }
+  }
+}
