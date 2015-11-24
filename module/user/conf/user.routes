@@ -1,0 +1,9 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET   /who            controllers.user.LoginController.who
+GET   /login          controllers.user.LoginController.login
+GET   /logout         controllers.user.LoginController.logout
+
+GET   /assets/login/*file   controllers.user.LoginAssets.versioned(path="/public", file: Asset)

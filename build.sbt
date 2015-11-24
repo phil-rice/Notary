@@ -1,15 +1,38 @@
-name := "notary"
+import Dependencies._
 
-version := "1.0-SNAPSHOT"
+lazy val commonSettings = Seq(
+  version := "0.1.0",
+  scalaVersion := scalaVersionNo,
+  javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
+  javaOptions ++= Seq("-Xmx4G", "-XX:+UseConcMarkSweepGC"),
+  resolvers ++= playRepositories,
+  libraryDependencies += scalaPlusPlay
+)
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")). 
+                settings(commonSettings: _*).
+                enablePlugins(PlayScala).
+                dependsOn( user, hello, utilities).
+				aggregate( user, hello, utilities)
+				  
+lazy val user = (project in file("module/user")).
+                settings(commonSettings: _*).
+                settings(
+				    libraryDependencies ++= userDependencies
+				  ).enablePlugins(PlayScala).
+				  dependsOn(utilities)
+				  
+lazy val hello = (project in file("module/hello")).
+                settings(commonSettings: _*).
+                settings(
+				    libraryDependencies ++= helloDependancies
+				  ).enablePlugins(PlayScala).
+				  dependsOn(utilities)
 
-scalaVersion := "2.11.6"
-
-resolvers += "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"
-
-libraryDependencies ++= Seq(
- "org.scalatestplus" %% "play" % "1.4.0-M3" % Test
-)     
-
+lazy val utilities = (project in file("module/utilities")).
+                settings(commonSettings: _*).
+                settings(
+				    libraryDependencies ++= utilitiesDependencies
+				  ).enablePlugins(PlayScala)
+			  
 //routesGenerator := InjectedRoutesGenerator

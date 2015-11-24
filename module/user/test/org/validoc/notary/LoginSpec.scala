@@ -3,7 +3,6 @@ package org.validoc.notary
 import play.api.mvc._
 import play.api.test._
 import scala.concurrent.Future
-import controllers.NotaryController
 import org.scalatestplus.play.PlaySpec
 import play.api.test.Helpers._
 import model.SimpleUserInRequest
@@ -12,7 +11,7 @@ import model.UserInRequest
 import model.User
 import play.api.libs.json.Json
 import model.SimpleUser
-import controllers.LoginController
+import controllers.user.LoginController
 
 class UserInSessionForTest extends UserInSession {
   var name: Option[String] = None

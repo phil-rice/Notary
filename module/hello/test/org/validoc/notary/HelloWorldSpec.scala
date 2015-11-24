@@ -1,11 +1,10 @@
 package org.validoc.notary
 
+import org.scalatestplus.play.PlaySpec
 import play.api.mvc._
 import play.api.test._
-import scala.concurrent.Future
-import controllers.NotaryController
-import org.scalatestplus.play.PlaySpec
 import play.api.test.Helpers._
+import controllers.hello.NotaryController
 
 class HelloWorldSpec extends PlaySpec with Results {
 
@@ -18,7 +17,7 @@ class HelloWorldSpec extends PlaySpec with Results {
       status(result) mustEqual OK
       contentType(result) mustBe Some("text/plain")
       charset(result) mustBe Some("utf-8")
-      contentAsString(result) mustBe "Hello World"
+      contentAsString(result) mustBe "Hello World" 
     }
   }
 }

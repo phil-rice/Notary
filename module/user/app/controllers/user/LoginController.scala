@@ -1,4 +1,4 @@
-package controllers
+package controllers.user
 
 import play.api.mvc._
 import model._
@@ -31,3 +31,6 @@ object LoginController extends Controller with LoginController[SimpleUser] {
   def userInRequest: UserInRequest = SimpleUserInRequest
 
 }
+
+import play.api.http.LazyHttpErrorHandler
+object LoginAssets extends controllers.AssetsBuilder(LazyHttpErrorHandler)

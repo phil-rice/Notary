@@ -1,10 +1,9 @@
-package org.validoc.notary.integration
+package org.validoc.integration
 
 import org.scalatest._
 import play.api.test._
 import play.api.test.Helpers._
 import org.scalatestplus.play._
-import play.api.Play
 
 class LoginIntegrationTest extends PlaySpec with OneServerPerSuite with OneBrowserPerTest with ChromeFactory {
 
